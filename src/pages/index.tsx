@@ -110,9 +110,9 @@ export default function Home() {
           The micro-blog was invented for people to be able to share their thoughts easily.
           We bring that simplicity back.
           Set up your Wrytr page, and start writing.
-          Go to other's pages, and start reading.
+          Go to other{"'"}s pages, and start reading.
           <br /> <br />
-          <span>That's it. Really.</span>
+          <span>That{"'"}s it. Really.</span>
         </p>
         <button
           onClick={() => signIn()}

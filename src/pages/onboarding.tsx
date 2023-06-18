@@ -79,11 +79,10 @@ export default function Onboarding() {
       </h1>
       <p className="font-bold text-center text-gray-900 pb-8">
         This will be your URL to your blog.
-        You can't easily change it again, so choose wisely!
+        You can{"'"}t easily change it again, so choose wisely!
       </p>
       <input className="text-4xl font-bold text-center text-gray-900 border-2 mb-4 p-2" type="text" onChange={(e) => setUsername(e.target.value)}></input>
       <button onClick={async () => {
-        // TODO: Make unique usernames
         isClashError(false);
         if (session && session?.user?.email && username) {
           const checkUserNameExists = await getUserByUsername(username);
