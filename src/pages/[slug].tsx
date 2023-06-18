@@ -105,7 +105,7 @@ export default function NotesDisplay() {
         }
       </div>
       <h1 className="text-6xl font-bold pb-8 text-center">
-        <span className="special">{slug}</span>'s notes
+        <span className="special">{slug}</span>{"'s"} notes
       </h1>
       {
         session && !user
