@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "../../lib/mongodb";
-
+import { MongoClient } from "mongodb";
 
 const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const client = await clientPromise;
+  const client = await MongoClient.connect(process.env.MONGODB_URI as string);
   const db = await client.db();
   const collection = await db.collection("users");
 
