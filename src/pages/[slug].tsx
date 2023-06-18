@@ -22,7 +22,7 @@ const InputBar = ({ user, username, slug, setNotes }: {
   setNotes: any
 }) => {
   const { data: session } = useSession()
-  const [description, setDescription] = useState("");
+  const [description, setDescription]: [any, any] = useState("");
   if (username !== slug) {
     return null;
   } else {
@@ -50,8 +50,8 @@ const InputBar = ({ user, username, slug, setNotes }: {
 
 export default function NotesDisplay() {
   const { data: session } = useSession();
-  const [notes, setNotes] = useState([]);
-  const [user, setUser] = useState(null);
+  const [notes, setNotes]: [any, any] = useState([]);
+  const [user, setUser]: [any, any] = useState(null);
 
   const router = useRouter();
   const { slug } = router.query;

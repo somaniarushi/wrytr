@@ -1,14 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MongoClient } from "mongodb";
+import clientPromise from "../../lib/mongodb";
 
 const getNotes = async (req: NextApiRequest, res: NextApiResponse) => {
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  const db = client.db();
-  const notesCollection = db.collection("notes");
-  const usersCollection = db.collection("users");
+  const client = await clientPromise;
+  const db = await client.db();
+  const notesCollection = await db.collection("notes");
+  const usersCollection = await db.collection("users");
 
   const { username } = req.query;
 

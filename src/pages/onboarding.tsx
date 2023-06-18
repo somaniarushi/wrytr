@@ -32,10 +32,10 @@ const LoadingScreen = () => {
 export default function Onboarding() {
   // If the user is not signed in, surface a sign in button. If a user is signed in, surface the title of the webpage
   const { data: session } = useSession()
-  const [user, setUser] = useState(null)
-  const [username, setUsername] = useState(null)
-  const [clashError, isClashError] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [user, setUser]: [any, any] = useState(null)
+  const [username, setUsername]: [any, any] = useState(null)
+  const [clashError, isClashError]: [any, any] = useState(false)
+  const [loading, setLoading]: [any, any]= useState(false)
 
 
   useEffect(() => {

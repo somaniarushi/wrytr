@@ -29,7 +29,7 @@ const setUsername = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
             }
         );
-        res.json({ message: "Username set successfully", id: result.insertedId });
+        res.json({ message: "Username set successfully", id: result.upsertedId });
     }
 };
 

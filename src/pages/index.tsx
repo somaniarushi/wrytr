@@ -30,7 +30,7 @@ const LoadingScreen = () => {
 export default function Home() {
   // If the user is not signed in, surface a sign in button. If a user is signed in, surface the title of the webpage
   const { data: session } = useSession()
-  const [user, setUser] = useState(null)
+  const [user, setUser]: [any, any] = useState(null)
 
   const getUser = async (email: String) => {
     // Foward email to the api, setting query as email

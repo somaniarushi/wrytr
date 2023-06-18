@@ -1,13 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MongoClient } from "mongodb";
+import clientPromise from "../../lib/mongodb";
 
 const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  const db = client.db();
-  const userCollection = db.collection("users");
+  const client = await clientPromise;
+  const db = await client.db();
+  const userCollection = await db.collection("users");
 
   if (req.method === "GET") {
     const { email } = req.query;

@@ -1,20 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MongoClient } from "mongodb";
+import clientPromise from "../../lib/mongodb";
 
 const createNote = async (req: NextApiRequest, res: NextApiResponse) => {
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  const db = client.db();
-  const notesCollection = db.collection("notes");
+  const client = await clientPromise;
+  const db = await client.db();
+  const notesCollection = await db.collection("notes");
   if (req.method === "POST") {
     const { title, description, email } = req.query;
 
-    if (
-      !description ||
-      description.trim() === ""
-    ) {
+    if (!description) {
       res
         .status(422)
         .json({
