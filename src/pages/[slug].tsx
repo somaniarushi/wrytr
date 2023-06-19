@@ -120,10 +120,10 @@ export default function NotesDisplay() {
         }
       </div>
       {/* Decrease distance between letters */}
-      <h1 className="text-5xl font-bold pb-8 text-center tracking-tighter">
+      <h1 className="md:text-5xl text-4xl font-bold pb-8 text-center tracking-tighter">
         <span className="special">{slug}</span>{"'s"} notes
       </h1>
-      <div className="flex flex-row justify-center pb-8">
+      <div className="flex flex-row justify-center">
       {
         session && !user
           ? (<Loader />)
@@ -177,7 +177,7 @@ const NoteDisplay = ({ description, timestamp }: {
         })
       }
     </p>
-    <div className="pl-5 md:pl-0 md:text-sm md:w-1/2">
+    <div className="pl-5 md:pl-0 text-sm md:w-1/2">
       <ReactMarkdown>{description}</ReactMarkdown>
     </div>
   </div>

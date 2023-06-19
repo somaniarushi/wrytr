@@ -94,7 +94,7 @@ export default function Home() {
 
   return (
     <>
-      <div className={`flex flex-col items-center justify-center min-h-screen py-2 p-24 ${font.className}`}>
+      <div className={`flex flex-col items-center justify-center min-h-screen py-2 p-16 md:p-24 ${font.className}`}>
         <h1 className="text-6xl font-bold text-center pb-8">
         <Typewriter
           options={{
@@ -107,7 +107,7 @@ export default function Home() {
         <p className="text-2xl font-bold text-center pb-8">
           Your personal micro-blogging platform.
         </p>
-        <p className="font-bold pb-8 w-1/2">
+        <p className="font-bold pb-8 md:w-1/2">
           The micro-blog was invented for people to be able to share their thoughts easily.
           We bring that simplicity back.
           Set up your Wrytr page, and start writing.
@@ -117,7 +117,7 @@ export default function Home() {
         </p>
         <button
           onClick={() => signIn()}
-          className={`text-sm bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded}`}>
+          className={`text-sm bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded`}>
           Sign Up or Sign In
         </button>
       </div>
