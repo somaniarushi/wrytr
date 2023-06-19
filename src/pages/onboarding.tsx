@@ -16,6 +16,7 @@ const PageHeader = () => {
     <Head>
       <title>The Wrytr: Onboarding</title>
       <link rel="icon" href="/favicon.ico" />
+      <meta name="og:image" content="/favicon.ico" />
       <meta name="description" content="Personalized micro-blogging service" />
     </Head>
   )
