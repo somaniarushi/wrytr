@@ -18,6 +18,9 @@ const PageHeader = () => {
       <title>The Wrytr: Notes</title>
       <link rel="icon" href="/favicon.ico" />
       <meta name="description" content="Personalized micro-blogging service" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
     </Head>
   )
 }
