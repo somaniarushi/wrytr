@@ -116,7 +116,7 @@ export default function NotesDisplay() {
   });
 
   return (
-    <div className={`${font.className} p-14`}>
+    <div className={`${font.className} p-6 md:p-14`}>
       <PageHeader />
       <div className="flex flex-row pb-10">
         {/* Back to home button in top left corner */}
