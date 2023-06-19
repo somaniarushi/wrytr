@@ -5,26 +5,38 @@ import { redirect } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react';
 import Typewriter from "typewriter-effect";
+import Head from 'next/head'
 
 const font = IBM_Plex_Serif({ weight: '400', subsets: ['latin'] })
 const jbm = JetBrains_Mono({ weight: "400", subsets: ["latin"], display: "swap" })
 
+const PageHeader = () => {
+  return (
+    <Head>
+      <title>The Wrytr</title>
+      <link rel="icon" href="/favicon.ico" />
+      <meta name="description" content="Personalized micro-blogging service" />
+    </Head>
+  )
+}
+
 const LoadingScreen = () => {
   return (
-  <div className={`flex flex-col items-center justify-center min-h-screen py-2 p-24 ${font.className}`}>
-        <h1 className="text-4xl font-bold text-center pb-8">
-          <Typewriter
-            options={{
-              strings: ['The Wrytr'],
-              autoStart: true,
-              loop: true,
-              delay: 50,
-            }}
-          />
-        </h1>
-        {/* Loading symbol */}
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
-      </div>
+    <div className={`flex flex-col items-center justify-center min-h-screen py-2 p-24 ${font.className}`}>
+      <PageHeader />
+      <h1 className="text-4xl font-bold text-center pb-8">
+        <Typewriter
+          options={{
+            strings: ['The Wrytr'],
+            autoStart: true,
+            loop: true,
+            delay: 50,
+          }}
+        />
+      </h1>
+      {/* Loading symbol */}
+      <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+    </div>
   )
 }
 
@@ -94,14 +106,15 @@ export default function Home() {
 
   return (
     <>
+      <PageHeader />
       <div className={`flex flex-col items-center justify-center min-h-screen py-2 p-16 md:p-24 ${font.className}`}>
         <h1 className="text-6xl font-bold text-center pb-8">
-        <Typewriter
-          options={{
-            strings: ['The Wrytr'],
-            autoStart: true,
-            loop: true,
-          }}
+          <Typewriter
+            options={{
+              strings: ['The Wrytr'],
+              autoStart: true,
+              loop: true,
+            }}
           />
         </h1>
         <p className="text-2xl font-bold text-center pb-8">

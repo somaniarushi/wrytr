@@ -7,13 +7,28 @@ import { Input } from "postcss";
 import { getNotes, getUser, createNote } from "../lib/utils";
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
-import Typewriter from "typewriter-effect";
+import Head from "next/head";
 
 const font = JetBrains_Mono({ weight: "400", subsets: ["latin"] })
 const jbm = JetBrains_Mono({ weight: "400", subsets: ["latin"] })
 
+const PageHeader = () => {
+  return (
+    <Head>
+      <title>The Wrytr: Notes</title>
+      <link rel="icon" href="/favicon.ico" />
+      <meta name="description" content="Personalized micro-blogging service" />
+    </Head>
+  )
+}
+
 const Loader = () => {
-  return <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+  return (
+  <>
+    <PageHeader />
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+  </>
+  )
 }
 
 // The input bar is a full screen modal
@@ -98,6 +113,7 @@ export default function NotesDisplay() {
 
   return (
     <div className={`${font.className} p-14`}>
+      <PageHeader />
       <div className="flex flex-row pb-10">
         {/* Back to home button in top left corner */}
         <button onClick={() => {

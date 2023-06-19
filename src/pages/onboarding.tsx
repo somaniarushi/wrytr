@@ -6,13 +6,25 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { use, useEffect, useState } from 'react';
 import { createUser, getUser, updateUser, getUserByUsername } from '../lib/utils';
 import Typewriter from "typewriter-effect";
+import Head from 'next/head'
 
 const font = IBM_Plex_Serif({ weight: '400', subsets: ['latin'] })
 const jbm = JetBrains_Mono({ weight: '400', subsets: ['latin'] })
 
+const PageHeader = () => {
+  return (
+    <Head>
+      <title>The Wrytr: Onboarding</title>
+      <link rel="icon" href="/favicon.ico" />
+      <meta name="description" content="Personalized micro-blogging service" />
+    </Head>
+  )
+}
+
 const LoadingScreen = () => {
   return (
   <div className={`flex flex-col items-center justify-center min-h-screen py-2 p-24 ${font.className}`}>
+        <PageHeader />
         <h1 className="text-4xl font-bold text-center pb-8">
           <Typewriter
             options={{
@@ -63,6 +75,7 @@ export default function Onboarding() {
 
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen py-2 ${font.className}`}>
+      <PageHeader />
       {/* Put log out in top right corner */}
       {/* <button
         onClick={() => {
