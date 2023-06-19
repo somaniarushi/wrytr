@@ -7,19 +7,22 @@ import { Input } from "postcss";
 import { getNotes, getUser, createNote } from "../lib/utils";
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
+import Typewriter from "typewriter-effect";
 
-const font = IBM_Plex_Serif({ weight: "400", subsets: ["latin"] });
+const font = JetBrains_Mono({ weight: "400", subsets: ["latin"] })
 const jbm = JetBrains_Mono({ weight: "400", subsets: ["latin"] })
 
 const Loader = () => {
   return <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
 }
 
-const InputBar = ({ user, username, slug, setNotes }: {
+// The input bar is a full screen modal
+const InputBar = ({ user, username, slug, setNotes, setModalIsOpen }: {
   user: any,
   username: any,
   slug: any,
-  setNotes: any
+  setNotes: any,
+  setModalIsOpen: any
 }) => {
   const { data: session } = useSession()
   const [description, setDescription]: [any, any] = useState("");
@@ -27,31 +30,43 @@ const InputBar = ({ user, username, slug, setNotes }: {
     return null;
   } else {
     return (
-      <div className={`flex flex-col items-center font-bold ${font.className}`}>
-        {/* Make the text box really wide and long */}
-        <textarea
-          className="border-2 border-gray-700 rounded-lg p-2 m-2 md:w-1/3 md:h-50 text-gray-700"
-          placeholder="Write something"
-          onChange={(e) => setDescription(e.target.value)} />
-        {/* Make button as big as the text within it*/}
-        <button
-          className="border-2 border-gray-700 rounded-lg p-2 m-2 w-20 hover:bg-gray-700 hover:text-gray-100"
-          onClick={async () => {
+      <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          {/* Background overlay, clickable to close modal */}
+          <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={() => {
+            setModalIsOpen(false);
+          }}>
+            <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+          </div>
+          {/* Centered modal content */}
+          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+          {/* Modal panel, show when screen is small */}
+          <div className="inline-block align-bottom bg-gray-300 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <input type="text" placeholder="Enter your note here" className="p-4 w-full bg-gray-300  outline-none"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }} />
+            {/* Center button */}
+            <button className="border-2 border-gray-700 rounded-lg p-1 m-2 w-20 hover:bg-gray-700"
+            onClick={async () => {
             await createNote("", description, user.email);
             // Reload the component
             const res = await getNotes(slug as string);
-            setNotes(res.notes);
+            setNotes(res.notes.reverse());
           }}>+</button>
+          </div>
+        </div>
       </div>
-
     )
   }
 }
 
 export default function NotesDisplay() {
   const { data: session } = useSession();
-  const [notes, setNotes]: [any, any] = useState([]);
+  const [notes, setNotes]: [any, any] = useState(null);
   const [user, setUser]: [any, any] = useState(null);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const router = useRouter();
   const { slug } = router.query;
@@ -64,7 +79,7 @@ export default function NotesDisplay() {
         if (res.statusCode === 401) {
           window.location.href = "/";
         } else {
-          setNotes(res.notes);
+          setNotes(res.notes.reverse());
         }
       }
     };
@@ -98,25 +113,39 @@ export default function NotesDisplay() {
             onClick={() => {
               signOut()
             }}
-            className={`text-sm absolute top-0 right-0 border-2 border-gray-700 rounded-lg p-2 m-2 w-20 hover:bg-gray-700 hover:text-gray-100 ${font.className}`}
+            className={`text-sm absolute top-0 right-0 border-2 border-gray-700 rounded-lg p-2 m-2 w-25 hover:bg-gray-700 hover:text-gray-100 ${font.className}`}
           >
             Sign Out
           </button>
         }
       </div>
-      <h1 className="text-6xl font-bold pb-8 text-center">
+      {/* Decrease distance between letters */}
+      <h1 className="text-5xl font-bold pb-8 text-center tracking-tighter">
         <span className="special">{slug}</span>{"'s"} notes
       </h1>
+      <div className="flex flex-row justify-center pb-8">
       {
         session && !user
           ? (<Loader />)
-          : (
-            user && user?.username && slug === user?.username &&
-            <InputBar user={user} username={user?.username} slug={slug} setNotes={setNotes} />
+          :
+          (
+            user && user?.username && slug === user?.username && <button onClick={() => {
+            setModalIsOpen(true);
+          }}
+            className={`text-sm border-2 border-gray-700 rounded-lg p-2 m-2 w-30 hover:bg-gray-700 hover:text-gray-100 ${font.className}`}
+          > Create New
+          </button>
           )
       }
+      {modalIsOpen
+        && <InputBar user={user} username={user?.username} slug={slug} setNotes={setNotes} setModalIsOpen={setModalIsOpen}/>
+      }
+      </div>
       <div className="pt-8">
-        {
+        { notes === null
+        ?<div className="flex flex-col items-center"> <Loader /></div>
+
+        :
           notes.map((note: any) => {
             return (
               <NoteDisplay description={note.description} timestamp={note.createdAt} key={note._id} />
@@ -148,8 +177,8 @@ const NoteDisplay = ({ description, timestamp }: {
         })
       }
     </p>
-    <p className="pl-5 md:pl-0 md:text-sm md:w-1/2">
+    <div className="pl-5 md:pl-0 md:text-sm md:w-1/2">
       <ReactMarkdown>{description}</ReactMarkdown>
-    </p>
+    </div>
   </div>
 );

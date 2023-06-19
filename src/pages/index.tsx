@@ -1,12 +1,13 @@
 import Image from 'next/image'
 // Import a serif font
-import { IBM_Plex_Serif } from 'next/font/google';
+import { IBM_Plex_Serif, JetBrains_Mono } from 'next/font/google';
 import { redirect } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react';
 import Typewriter from "typewriter-effect";
 
 const font = IBM_Plex_Serif({ weight: '400', subsets: ['latin'] })
+const jbm = JetBrains_Mono({ weight: "400", subsets: ["latin"], display: "swap" })
 
 const LoadingScreen = () => {
   return (
@@ -116,7 +117,7 @@ export default function Home() {
         </p>
         <button
           onClick={() => signIn()}
-          className='text-sm bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded'>
+          className={`text-sm bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded}`}>
           Sign Up or Sign In
         </button>
       </div>
