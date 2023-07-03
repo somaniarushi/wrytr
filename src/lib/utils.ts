@@ -63,6 +63,20 @@ const createNote = async (
   return json;
 };
 
+const deleteNote = async (
+  description: String,
+  email: String,
+  ) => {
+  const res = await fetch(
+    `/api/deleteNote?description=${description}&email=${email}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+}
+
 const getUserByUsername = async (username: String) => {
   const res = await fetch(`/api/getUserByUsername?username=${username}`, {
     method: "GET",
@@ -74,4 +88,4 @@ const getUserByUsername = async (username: String) => {
   return json;
 };
 
-export { getUser, getNotes, createNote, createUser, updateUser, getUserByUsername };
+export { getUser, getNotes, createNote, createUser, updateUser, getUserByUsername,deleteNote };
