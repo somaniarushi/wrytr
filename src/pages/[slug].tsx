@@ -168,7 +168,7 @@ export default function NotesDisplay() {
           :
           notes.map((note: any) => {
             return (
-              <NoteDisplay description={note.description} timestamp={note.createdAt} setNotes={setNotes} slug={slug} email={session.user.email} key={note._id} />
+              <NoteDisplay description={note.description} timestamp={note.createdAt} setNotes={setNotes} slug={slug} email={session?.user?.email} key={note._id} />
             )
           })
         }
